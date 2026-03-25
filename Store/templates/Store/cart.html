@@ -1,0 +1,58 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+
+{%  block content %}
+<div class="row">
+		<div class="col-lg-12">
+			<div class="box-element">
+<a  class="btn btn-outline-dark" href="{% url 'index' %}">&#x2190; Continue Shopping</a>
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items: <strong>{{order.gettotqty}}</strong></h5></th>
+						<th><h5>Total:<strong> ${{order.gettotbill}}</strong></h5></th>
+						<th>
+							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+						</th>
+					</tr>
+				</table>
+			</div>
+
+			<br>
+			<div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+                {% for item in orderitems %}
+
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.picture.url}}"></div>
+					<div style="flex:2"><p>{{item.product.prdname}}</p></div>
+					<div style="flex:1"><p>${{item.product.price}}</p></div>
+					<div style="flex:1">
+						<form method="POST" action="{% url 'updatecart' %}">
+                            {% csrf_token %}
+                            <input type="text" name="txtqty{{item.product.id}}" value="{{item.quantity}}" width="40">
+                            <input type="submit" name="btnupd" value="update">
+                            <input type="submit" name="btndel" value="delete">
+
+                        </form>
+					</div>
+                    
+					<div style="flex:1"><p>${{item.getitemtot}}</p></div>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+
+
+
+
+{% endblock %}

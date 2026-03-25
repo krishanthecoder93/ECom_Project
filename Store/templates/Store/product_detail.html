@@ -1,0 +1,16 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+
+{%  block content %}
+<h2>{{ product.prdname }}</h2>
+
+<img src="{{ product.picture.url }}" width="200">
+
+<p>{{ product.description }}</p>
+
+<p>Price: ${{ product.price }}</p>
+
+
+
+
+{% endblock %}

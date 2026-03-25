@@ -1,0 +1,64 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+
+{%  block content %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
+<div class="row">
+		<div class="col-lg-6">
+			<div class="box-element" id="form-wrapper">
+					<div id="shipping-info">
+						<hr>
+						<p>Shipping Information:</p>
+						<hr>
+						<div class="form-field">
+							<input class="form-control" type="text" id="txtadr"  name="address" placeholder="Address..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text"  id="txtcty" name="city" placeholder="City..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="state" id="txtsta"  placeholder="State..">
+						</div>
+						<div class="form-field">
+							<input class="form-control" type="text" name="zipcode"  id="txtzipcod" placeholder="Zip code..">
+						</div>
+						
+					</div>
+					<br>
+			<div id="payment-info">
+				
+                <button class="button is-primary" id="submitBtn">Pay With Stripe</button>
+			</div>
+			</div>
+
+			
+
+		
+        </div>
+		<div class="col-lg-6">
+			<div class="box-element">
+				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+				
+				<h3>Order Summary</h3>
+				<hr><h5>Items:  {{order.gettotqty}}</h5>
+				<h5>Total:    ${{order.gettotbill}}</h5><hr>
+				{% for itm in orderitems %}
+				<div class="cart-row">
+					
+					<div style="flex:2"><img class="row-image" src="{{itm.product.picture.url}}"></div>
+					<div style="flex:2"><p>{{itm.product.prdname}}</p></div>
+					<div style="flex:1"><p>${{itm.product.price}}</p></div>
+					<div style="flex:1"><p>x{{itm.quantity}}</p></div>
+					<div style="flex:1"><p>${{itm.getitemtot}}</p></div>
+					
+				</div>
+				{% endfor %}
+				
+			</div>
+	</div>
+</div>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+
+{%  block content %}
+
+<form method="post" action="{% url 'updatecart' %}">
+    {% csrf_token %}
+<div class="row">
+    {% for prd in prds %}
+    <div class="col-lg-4">
+        <img src="{{prd.picture.url}}"  width="200" height="200" class="thumbnail"/>
+        <div class="box-element product">
+            <h6><strong>{{prd.prdname}}</strong></h6>
+            <hr>
+            <button  class="btn btn-outline-secondary add-btn" type="submit" name="btn{{prd.id}}" >Add to Cart</button>
+				<a class="btn btn-outline-success" href="{% url 'product_detail_view' prd.id %}">View</a>
+				<h4 style="display: inline-block; float: right"><strong>$ {{prd.price}}</strong></h4>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</form>
+
+
+{% endblock %}

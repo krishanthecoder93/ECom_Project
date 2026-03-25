@@ -1,0 +1,14 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+{%  block content %}
+<form method="post" action="">
+{% csrf_token %}
+
+{{form.as_p}}
+
+<button type="submit">Login</button>
+
+<a href="{% url 'register' %}" >Register New Customer </a>
+
+</form>
+{% endblock %}

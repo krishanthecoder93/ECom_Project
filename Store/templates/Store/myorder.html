@@ -1,0 +1,38 @@
+{% extends 'Store/base.html' %}
+{% load static %}
+
+{%  block content %}
+{% for ord in ords %}
+
+<h3>Order {{ ord.id }}</h3>
+
+<table border="1">
+
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>Qty</th>
+</tr>
+
+{% for item in ord.orderitems_set.all %}
+
+<tr>
+<td>
+<a href="{% url 'product_detail_view' item.product.id %}">
+<img src="{{ item.product.picture.url }}" width="60">
+{{ item.product.prdname }}
+</a></td>
+<td width="50">{{ item.product.price }}</td>
+<td width="50">{{ item.quantity }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endfor %}
+
+
+
+
+{% endblock %}
